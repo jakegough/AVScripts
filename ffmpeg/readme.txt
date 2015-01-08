@@ -1,0 +1,1 @@
+this assumes ffmpeg.exe is in your path, or at least in ../bin/ or ../bin/ffmpeg/
