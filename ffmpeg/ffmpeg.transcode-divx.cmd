@@ -2,19 +2,27 @@
 ::  1) drag and drop a video file onto this script, and it will output a divx video
 ::  2) drag and drop a video file and a wav audio file onto this script, and it will 
 ::      output a divx video using the supplied wav file as the audio track
-::  3) call this script from another with any of the environment varialbes already set:
+::  3) call this script from another script with any of the environment varialbes already set:
 ::     a. FFMPEG_INPUT_FILE_VIDEO
+::         self explanitory
 ::     b. FFMPEG_INPUT_FILE_AUDIO
+::         optional separate audio track for muxing
 ::     c. FFMPEG_OUTPUT_FILE
+::         optional custom output file name
 ::     d. RESOLUTION
-::     e. FFMPEG_VIDEO_QUALITY
-::     f. FFMPEG_VIDEO_W
-::     g. FFMPEG_VIDEO_H
+::         values: 240p, 360p, 480p, 720p, 1080p
+::     e. FFMPEG_VIDEO_W
+::         frame width, ignored if RESOLUTION provided
+::     f. FFMPEG_VIDEO_H
+::         frame height, ignored if RESOLUTION provided
+::     g. FFMPEG_VIDEO_QUALITY
+::         1-31, 3–5 recommended, 2 = visually lossless, double the value = half the bitrate (see https://trac.ffmpeg.org/wiki/Encode/MPEG-4)
 ::     h. FFMPEG_AUDIO_QUALITY
+::         0-9 where a lower value is a higher quality (libmp3lame quality, see https://trac.ffmpeg.org/wiki/Encode/MP3)
 
 setlocal
 
-CALL "%~dp0.\ffmpeg.settings.cmd"
+call "%~dp0.\ffmpeg.settings.cmd"
 
 if "%FFMPEG_INPUT_FILE_AUDIO%"=="" if /I "%~x1"==".wav" SET FFMPEG_INPUT_FILE_AUDIO=%~1
 if "%FFMPEG_INPUT_FILE_AUDIO%"=="" if /I "%~x2"==".wav" SET FFMPEG_INPUT_FILE_AUDIO=%~2
@@ -106,14 +114,9 @@ if "%FFMPEG_INPUT_FILE_AUDIO%"=="" (
 
 if "%FFMPEG_OUTPUT_FILE%"=="" SET FFMPEG_OUTPUT_FILE=%FFMPEG_INPUT_FILE_VIDEO_BASE%.divx.avi
 
-:: MPEG-4 video quality: 1-31, with 1 being highest quality/largest filesize and 31 being the lowest quality/smallest filesize
-:: roughly analogous to using -qp (constant QP [quantization parameter]) with x264
-:: https://trac.ffmpeg.org/wiki/Encode/MPEG-4
 if "%FFMPEG_VIDEO_QUALITY%"=="" set FFMPEG_VIDEO_QUALITY=4
 if not "%FFMPEG_VIDEO_QUALITY%"=="" set FFMPEG_CLI_VIDEO_QUALITY=-q:v %FFMPEG_VIDEO_QUALITY%
 
-:: libmp3lame quality, 0-9 where a lower value is a higher quality
-:: https://trac.ffmpeg.org/wiki/Encode/MP3
 if "%FFMPEG_AUDIO_QUALITY%"=="" set FFMPEG_AUDIO_QUALITY=4
 if not "%FFMPEG_AUDIO_QUALITY%"=="" set FFMPEG_CLI_AUDIO_QUALITY=-q:a %FFMPEG_AUDIO_QUALITY%
 

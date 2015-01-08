@@ -1,7 +1,8 @@
-:: USAGE:
-::  1) drag and drop a video file onto this script, and it will output a mpeg video
+:: USAGE: drag and drop a video file onto this script, and it will output a mpg video
 
-CALL "%~dp0.\ffmpeg.settings.cmd"
+setlocal
+
+call "%~dp0.\ffmpeg.settings.cmd"
 
 if "%FFMPEG_INPUT_FILE%"=="" SET FFMPEG_INPUT_FILE=%~1
 
@@ -18,8 +19,7 @@ if "%FFMPEG_OUTPUT_FILE%"=="" SET FFMPEG_OUTPUT_FILE=%FFMPEG_INPUT_FILE_BASE%.mp
   -c copy ^
   -f dvd ^
   "%FFMPEG_OUTPUT_FILE%"
-  
-::-target ntsc-dvd ^
-:: -acodec libmp3lame -ac 2 -af "aresample=matrix_encoding=dplii" -q:a 2 ^
+
+endlocal  
   
 if "%SCRIPT_MODE%"=="" pause

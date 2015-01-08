@@ -5,13 +5,15 @@
 ::     a. FFMPEG_INPUT_FILE
 ::     b. FFMPEG_OUTPUT_FILE
 
-CALL "%~dp0.\ffmpeg.settings.cmd"
+setlocal
 
-if "%FFMPEG_INPUT_FILE%"=="" SET FFMPEG_INPUT_FILE=%~1
-if "%FFMPEG_OUTPUT_FILE%"=="" SET FFMPEG_OUTPUT_FILE=%~2
-if "%FFMPEG_OUTPUT_FILE%"=="" SET FFMPEG_OUTPUT_FILE=%~dpn1.video%~x1
+call "%~dp0.\ffmpeg.settings.cmd"
 
-if not "%FFMPEG_BEGIN%"=="" if not "%FFMPEG_DURATION%"=="" SET FFMPEG_CLIP= -ss %FFMPEG_BEGIN% -t %FFMPEG_DURATION%
+if "%FFMPEG_INPUT_FILE%"=="" set FFMPEG_INPUT_FILE=%~1
+if "%FFMPEG_OUTPUT_FILE%"=="" set FFMPEG_OUTPUT_FILE=%~2
+if "%FFMPEG_OUTPUT_FILE%"=="" set FFMPEG_OUTPUT_FILE=%~dpn1.video%~x1
+
+if not "%FFMPEG_BEGIN%"=="" if not "%FFMPEG_DURATION%"=="" set FFMPEG_CLIP= -ss %FFMPEG_BEGIN% -t %FFMPEG_DURATION%
 
 "%FFMPEG_EXE%" ^
   -i "%FFMPEG_INPUT_FILE%" ^
@@ -20,5 +22,7 @@ if not "%FFMPEG_BEGIN%"=="" if not "%FFMPEG_DURATION%"=="" SET FFMPEG_CLIP= -ss 
   -an ^
   %FFMPEG_CLIP% ^
   "%FFMPEG_OUTPUT_FILE%"
-  
+
+endlocal
+
 if "%SCRIPT_MODE%"=="" pause
