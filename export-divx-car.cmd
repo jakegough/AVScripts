@@ -1,0 +1,4 @@
+SET RESOLUTION=360p
+SET VFR_WORKAROUND=1
+
+CALL "%~dp0.\export-divx.cmd" %*
