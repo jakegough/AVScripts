@@ -1,0 +1,4 @@
+SET RESOLUTION=360p
+SET RESOLUTION_QUALITY=HQ
+
+CALL "%~dp0.\export-x264.cmd" %*

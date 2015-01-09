@@ -1,0 +1,12 @@
+call "%~dp0.\neroaac.settings.cmd"
+
+if "%NEROAAC_INPUT_FILE%"=="" SET NEROAAC_INPUT_FILE=%~1
+if "%NEROAAC_OUTPUT_FILE%"=="" SET NEROAAC_OUTPUT_FILE=%~2
+if "%NEROAAC_OUTPUT_FILE%"=="" SET NEROAAC_OUTPUT_FILE=NEROAAC_INPUT_FILE.m4a
+
+"%NEROAAC_EXE%" ^
+  -q 0.5 ^
+  -if "%NEROAAC_INPUT_FILE%" ^
+  -of "%NEROAAC_OUTPUT_FILE%"
+
+if "%SCRIPT_MODE%"=="" pause

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profile>
+    <!-- profile name - Default -->
+    <name lang="mogz">:5086</name>
+
+    <!-- Common MKV flags -->
+    <mkvSettings 
+        ignoreForcedSubtitlesFlag="false"
+        useISO639Type2T="false"
+        setFirstAudioTrackAsDefault="true"
+        setFirstSubtitleTrackAsDefault="false"
+        setFirstForcedSubtitleTrackAsDefault="true"
+        insertFirstChapter00IfMissing="true"
+    />
+
+    <!-- Settings overridable in preferences -->
+    <!-- <profileSettings
+        app_DefaultSelectionString="+sel:all,-sel:havecore,-sel:mvcvideo,=100:all,-10:favlang"
+    /> -->
+    <profileSettings
+        app_DefaultSelectionString="+sel:all,-sel:mvcvideo,=100:all,-10:favlang"
+    />
+
+    <!-- Output formats currently supported by MakeMKV -->
+    <outputSettings name="copy" outputFormat="directCopy">
+        <description lang="eng">Copy track as is</description>
+        <description lang="ger">Track 1:1 kopieren</description>
+    </outputSettings>
+
+    <!-- Default rule - copy as is -->
+    <trackSettings input="default">
+        <output outputSettingsName="copy" 
+                defaultSelection="$app_DefaultSelectionString">
+        </output>
+    </trackSettings>
+</profile>

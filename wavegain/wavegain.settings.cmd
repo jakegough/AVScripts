@@ -1,0 +1,3 @@
+SET WAVEGAIN_SEARCH_PATH=%~dp0..\bin\;%~dp0..\bin\wavegain\;
+SET PATH=%PATH%;%WAVEGAIN_SEARCH_PATH%
+SET WAVEGAIN_EXE=WaveGain.exe
