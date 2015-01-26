@@ -49,6 +49,8 @@ I have a Nissan with the "Infotainment" package that will play DIVX videos from 
 
 For the little 7" LCD in my car, I get by with a 360p resolution and encode most things in HQ.  But when I have a video that's excessively long, I encode it with standard quality.  (For example, _Pirates of the Caribbean II- Dead Man's Chest (2006)_ would cut out close to the end if the file size was over 1GB.
 
+*__Bonus Nissan Side Note:__ Variable Frame Rate (VFR) videos encoded with FFMpeg to DIVX were playing very jerky in the car.  Even when the source was a DVD where the frame rate was effectively constant.  The only way I found to get around this is to produce a true Constant Frame Rate (CRF) video using Handbrake first, with a CRF of 0 (lossless).  This inflates the final DIVX file output size a little.  Oh well, at least the video isn't jerky any more.  You can control this workaround with the `VFR_WORKAROUND` variable.*
+
 - `export-divx-car.cmd`
 - `export-divx-car-HQ.cmd`
 
