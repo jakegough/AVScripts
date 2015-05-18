@@ -1,0 +1,80 @@
+WaveGain v1.3.1 Compiled Dec 16 2011.
+Copyright (c) 2002-2010 John Edwards <john.edwards33@ntlworld.com>
+Additional code by Magnus Holmgren, Gian-Carlo Pascutto, and Tycho
+
+ Usage: wavegain [options] input.wav [...] [-e cmd [args]]
+
+ OPTIONS
+  -h, --help       Prints this help information.
+  -a, --album      Use ReplayGain Audiophile/Album gain setting, or
+  -r, --radio      Use ReplayGain Radio/Single Track gain setting(DEFAULT).
+  -q, --adc        Apply Album based DC Offset correction.
+                   DEFAULT is Track based DC Offset correction.
+  -p, --no_offset  Do NOT apply DC Offset correction.
+  -c, --calculate  Calculates and prints gain settings, and DC Offsets BUT
+                   DOES NOT APPLY THEM - This is the DEFAULT.
+  -x, --scale      Writes scale values to stdout in the format: n.nnnnnn
+                   In Album mode it only writes the Album Scale value, and
+                   in Title mode it only writes the Title Scale values.
+                   ONLY works in Calculation mode.
+  -y, --apply      Calculates and APPLIES gain settings, and applies
+                   DC Offset correction.
+  -w, --write      Writes a 'gain' chunk into the Wave Header.
+                   Stores the scalefactor applied to the wave data as a
+                   double floating point number. Only written when gain
+                   is applied. Presence will result in file being skipped
+                   if reprocessed.
+                   (Unless '--force' or '--undo-gain' are specified.)
+      --force      Forces the reprocessing of a file that contains a 'gain'
+                   chunk and will result in the new scalefactor overwriting
+                   the existing value.
+      --undo-gain  Reads the scalefactor in the 'gain' chunk and uses the
+                   value to reverse the previously applied gain. This will NOT
+                   recreate a bit identical version of the original file, but
+                   it will be rescaled to the original level.
+  -z, --recursive  Search for files recursively, each folder as an album
+  -l, --log        Write log file.(Default filename = WGLog.txt)
+  -f, --logfile    Specify log filename. (Assumes -l if present.)
+  -n, --noclip     NO Clipping Prevention.
+  -d, --dither X   Dither output, where X =
+               0   for       dither OFF (default).
+               1   for       dither without Noise Shaping.
+               2   for       dither with Light Noise Shaping.
+               3   for       dither with Medium Noise Shaping.
+               4   for       dither with Heavy Noise Shaping.
+  -t, --limiter    Apply 6dB Hard Limiter to output.
+  -g, --gain X     Apply additional Manual Gain adjustment in decibels, where
+             X = any floating point number between -20.0 and +12.0.
+                   Clipping Prevention WILL be applied UNLESS '-n' is used.
+  -s, --fast       Calculates and prints gain settings - DOES NOT APPLY THEM.
+                   NOTE: This method does NOT process all samples, it only
+                         processes 200 x 16k chunks of samples. Results will
+                         NOT be as accurate as a full analysis but, with most
+                         material, will be within +/- 0.5db. Files of 8,192,000
+                         real samples, or less, will be analysed in full.
+                         DC Offset is neither calculated nor corrected in
+                         FAST mode.
+  -o, --stdout     Write output file to stdout.
+ FORMAT OPTIONS (One option ONLY may be used)
+  -b, --bits X     Set output sample format, where X =
+             1     for        8 bit unsigned PCM data.
+             2     for       16 bit signed PCM data.
+             3     for       24 bit signed PCM data.
+             4     for       32 bit signed PCM data.
+             5     for       32 bit floats.
+             6     for       16 bit 'aiff' format.
+         NOTE:     By default, the output file will be of the same bitwidth
+                   and type as the input file.
+  -e, --exec Cmd   Execute a command after wavegain.
+                   The following environment variables are available:
+                   INPUT_FILE, INPUT_FDIR, INPUT_RDIR, INPUT_NAME,
+                   TRACK_GAIN, TRACK_PEAK, TRACK_SCALE, TRACK_NEW_PEAK,
+                   ALBUM_GAIN, ALBUM_PEAK, ALBUM_SCALE, ALBUM_NEW_PEAK,
+                   DC_OFFSET_L, DC_OFFSET_R
+ INPUT FILES
+  WaveGain input files may be 8, 16, 24 or 32 bit integer, or floating point
+  wave files with 1 or 2 channels and a sample rate of 96000Hz, 88200Hz,
+  64000Hz, 48000Hz, 44100Hz, 32000Hz, 24000Hz, 22050Hz, 16000Hz, 12000Hz,
+  11025Hz or 8000Hz.
+  16 bit integer 'aiff' files are also supported.
+  Wildcards (?, *) can be used in the filename, or '-' for stdin.

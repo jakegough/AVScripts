@@ -1,0 +1,20 @@
+Use: makemkvcon [switches] Command [Parameters]
+
+Commands:
+  info <source>
+      prints info about disc
+  mkv <source> <title id> <destination folder>
+      saves a single title to mkv file
+  stream <source>
+      starts streaming server
+  backup <source> <destination folder>
+      backs up disc to a hard drive
+
+Source specification:
+  iso:<FileName>    - open iso image <FileName>
+  file:<FolderName> - open files in folder <FolderName>
+  disc:<DiscId>     - open disc with id <DiscId> (see list Command)
+  dev:<DeviceName>  - open disc with OS device name <DeviceName>
+
+Switches:
+  -r --robot        - turn on "robot" mode, see http://www.makemkv.com/developers
